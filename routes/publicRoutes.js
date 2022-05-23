@@ -17,9 +17,10 @@ publicRouter.get("/about", pagesController.showAboutUs);
 publicRouter.get("/login", pagesController.showLogin);
 
 publicRouter.post(
-  "/login", passport.authenticate('local', {
-      successRedirect: "/admin",
-      failureRedirect: "/login",
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/admin",
+    failureRedirect: "/login",
   })
 );
 
@@ -27,8 +28,6 @@ publicRouter.get("/register", pagesController.showRegister);
 
 publicRouter.post("/register", pagesController.registerPostNewAuthor);
 
-publicRouter.get("/logout", pagesController.logOut);
-
-
+publicRouter.get("/logout", pagesController.logOut); 
 
 module.exports = publicRouter;

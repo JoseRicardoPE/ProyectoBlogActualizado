@@ -6,34 +6,45 @@
   </head>
   <body>
     <%- include ('partials/navbar.ejs') %>
-    <div class="container">  
-      <main class="main__container row my-5">
+    <div class="container">
+      <main class="main__container my-5">
         <article class="main__article col-md-9">
           <div class="article__text mb-4">
-            <h3 class="mb-4 text-center fw-bold"><%= articleIndividual.title %> </h3>
-            <p class=""><%= articleIndividual.content%> </p>
+            <h3 class="mb-4 text-center fw-bold">
+              <%= articleIndividual.title %>
+            </h3>
+            <p class=""><%= articleIndividual.content%></p>
           </div>
-          <figure class="mx-auto" style="width: 45%; height: 55%;">
-            <img style="width: 100%; height: 100%;" src="<%= articleIndividual.image %>" alt=""> 
-            <p class="text-center" style="font-size: 12px;"><%= articleIndividual.createDate %> </p>
+          <figure class="mx-auto" style="width: 45%; height: 55%">
+            <img
+              style="width: 100%; height: 100%"
+              src="<%= articleIndividual.image %>"
+              alt=""
+            />
+            <p class="text-center" style="font-size: 12px">
+              <%= articleIndividual.createDate %>
+            </p>
           </figure>
-         <div class="my-5"> 
-           <h6 class="fw-lighter fst-italic">Autor: <%= articleIndividual.author.firstname + ' ' + articleIndividual.author.lastname + ' // ' + articleIndividual.author.email%> </h6> 
-           <p><%= articleIndividual.comments.title %></p> </p>
+          <h6 class="fw-lighter fst-italic">
+            Autor: <%= articleIndividual.author.firstname + ' ' +
+            articleIndividual.author.lastname + ' // ' +
+            articleIndividual.author.email%>
+          </h6>
+          <div class="my-5">
+            <h4>Comentarios para este artículo</h4>
+            <% for (const iterator of articleIndividual.comments) { %>
+            <p><%= iterator.content %></p>
+            <% } %>
+          </div>
+          <div class="mb-3 px-3 d-flex justify-content-center my-4">
+            <a href="/" class="btn btn-outline-dark btn-sm mx-6"
+            ><i class="fas fa-home"></i> home</a
+            >
           </div>
         </article>
-        <aside class="container aside col-md-3 mt-2">
-          <%- include ('partials/sidebar.ejs') %>
-        </aside>
-        <div class="mb-3 px-3 d-flex justify-content-center my-4">
-          <a href="/" class="btn btn-outline-dark btn-sm mx-6"
-            ><i class="fas fa-home"></i> home</a
-          >
-      </div>
-      </main>
+      </main> 
     </div>
     <%- include ('partials/footer.ejs') %>
-    
 
     <script
       src="https://kit.fontawesome.com/849e8c00db.js"

@@ -1,8 +1,13 @@
 const express = require("express");
 const adminRouter = express.Router();
 const adminController = require("../controllers/authorController");
+const { isAuthenticated } = require("../middlewares/validate");
 
 // Rutas del Admin:
+
+// Middleware para blindar las rutas del admin
+adminRouter.use(isAuthenticated);
+
 adminRouter.get("/", adminController.showHomeAdmin);
 
 adminRouter.get("/newArticle", adminController.showNewArticle);

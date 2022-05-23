@@ -3,8 +3,8 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const methodOverride = require("method-override");
-const cookieParser = require("cookie-parser");
 const app = express();
+const flash = require("express-flash");
 const port = 3000;
 
 const dbInitialSetup = require("./dbInitialSetup");
@@ -18,7 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(logger);
 app.use(express.json());
-// app.use(cookieParser);
 
 app.use(
   session({
@@ -28,19 +27,9 @@ app.use(
   })
 );
 
-app.use(passport.authenticate("session"));
-
 passport(app);
 
 routes(app);
-
-// app.get("/admin", (req, res) => {
-//   if (req.isAuthenticated()){
-//     res.render("admin");
-//   } else {
-//     res.redirect("/login");
-//   }
-// })
 
 // dbInitialSetup();
 

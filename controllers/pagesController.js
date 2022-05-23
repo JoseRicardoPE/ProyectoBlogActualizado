@@ -1,6 +1,6 @@
 const { Article, Author, Comment } = require("../models");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const passport = require("../passport");
 
 const pagesController = {
   showHome: async (req, res) => {
@@ -14,7 +14,7 @@ const pagesController = {
   showArticle: async (req, res) => {
     const articleId = req.params.id;
     const articleIndividual = await Article.findByPk(articleId, {
-      include: [Author, Comment],
+      include: [Author, Comment]
     });
     res.render("article", { articleIndividual });
   },
@@ -57,7 +57,8 @@ const pagesController = {
   },
 
   logOut: async (req, res) => {
-    req.logout();
+    await req.logout();
+    delete req.locals.user;
     res.redirect("/");
   }
 };

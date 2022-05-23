@@ -26,6 +26,5 @@ module.exports = (sequelize, Model, DataTypes) => {
       modelName: "author",
     }
   );
-
   return Author;
 };
