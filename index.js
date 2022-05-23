@@ -28,9 +28,19 @@ app.use(
   })
 );
 
+app.use(passport.authenticate("session"));
+
 passport(app);
 
 routes(app);
+
+// app.get("/admin", (req, res) => {
+//   if (req.isAuthenticated()){
+//     res.render("admin");
+//   } else {
+//     res.redirect("/login");
+//   }
+// })
 
 // dbInitialSetup();
 

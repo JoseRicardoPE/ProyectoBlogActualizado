@@ -20,21 +20,21 @@ const pagesController = {
   },
 
   showContact: async (req, res) => {
-    res.render("contact");
+    await res.render("contact");
   },
 
   showAboutUs: async (req, res) => {
-    res.render("aboutUs");
+    await res.render("aboutUs");
   },
 
   // Otros handlers...
   // Login y Register
   showLogin: async (req, res) => {
-    res.render("login");
+    await res.render("login");
   },
 
   showRegister: async (req, res) => {
-    res.render("register");
+    await res.render("register");
   },
 
   registerPostNewAuthor: async (req, res) => {
@@ -55,6 +55,11 @@ const pagesController = {
       res.send("¡El usuario ya se encuentra registrado!");
     }
   },
+
+  logOut: async (req, res) => {
+    req.logout();
+    res.redirect("/");
+  }
 };
 
 module.exports = pagesController;
