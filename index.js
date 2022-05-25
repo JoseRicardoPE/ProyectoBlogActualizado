@@ -8,7 +8,6 @@ const app = express();
 const flash = require("connect-flash");
 const port = 3000;
 
-const logger = require("./middlewares/logger");
 const routes = require("./routes/routes");
 const passport = require("./passport");
 
@@ -16,7 +15,6 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(logger);
 app.use(express.json());
 app.use(flash());
 
@@ -32,7 +30,7 @@ app.use(
 app.use((req, res, next) => {
   res.locals.mensajes = req.flash();
   next();
-})
+});
 
 passport(app);
 

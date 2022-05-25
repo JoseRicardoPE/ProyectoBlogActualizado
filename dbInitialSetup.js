@@ -6,6 +6,9 @@ module.exports = async () => {
   console.log("[Database] ¡Las tablas fueron creadas!");
 
   // Ejecutar seeders (datos de prueba):
+  await require("./seeders/roleSeeder")();
+  console.log("[Database] Los roles fueron insertados");
+
   await require("./seeders/authorSeeder")();
   console.log("[Database] Los autores fueron insertados");
 
