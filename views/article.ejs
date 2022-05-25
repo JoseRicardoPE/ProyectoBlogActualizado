@@ -36,6 +36,42 @@
             <p><%= iterator.content %></p>
             <% } %>
           </div>
+          <form action="/create/<%= articleIndividual.id %>" method="POST" class="">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title Comment</label>
+              <input
+                type="text"
+                class="form-control"
+                name="title"
+                id="title"
+                placeholder="Enter title..."
+              />
+            </div>
+            <div class="my-2">
+              <label for="content" class="form-label">Comments</label>
+              <textarea
+                class="form-control"
+                id="content"
+                name="content"
+                placeholder="Add your comment here"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="mt-3">
+              <label for="createDate" class="form-label">Date Comment</label>
+              <input
+                class="form-control"
+                type="date"
+                id="createDate"
+                name="createDate"
+              />
+            </div>
+            <div class="mt-3">
+              <button type="submit" class="btn btn-success btn-sm">
+                <i class="fas fa-check"></i> Send</button>
+            </div>
+          </form>
+
           <div class="mb-3 px-3 d-flex justify-content-center my-4">
             <a href="/" class="btn btn-outline-dark btn-sm mx-6"
             ><i class="fas fa-home"></i> home</a

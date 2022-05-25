@@ -35,13 +35,13 @@ module.exports = function (app) {
   });
 
   //  Por cada vez que el usuario navega por medio de su id, passport deserializa el usuario y revisa en la db si ese usuario existe
-  passport.deserializeUser( (id, done) => {
+  passport.deserializeUser((id, done) => {
     Author.findByPk(id)
-    .then((user) => {
+      .then((user) => {
         done(null, user);
-    })
-    .catch((err) => {
+      })
+      .catch((err) => {
         done(err, user);
-    })
-})
+      });
+  });
 };

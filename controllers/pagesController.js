@@ -1,5 +1,7 @@
 const { Article, Author, Comment } = require("../models");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authConfig = require("../auth");
 const passport = require("../passport");
 
 const pagesController = {
@@ -14,7 +16,7 @@ const pagesController = {
   showArticle: async (req, res) => {
     const articleId = req.params.id;
     const articleIndividual = await Article.findByPk(articleId, {
-      include: [Author, Comment]
+      include: [Author, Comment],
     });
     res.render("article", { articleIndividual });
   },
@@ -37,30 +39,35 @@ const pagesController = {
     await res.render("register");
   },
 
-  registerPostNewAuthor: async (req, res) => {
-    const [ user, created ] = await Author.findOrCreate({
-      where: { email: req.body.email },
-      defaults: {
-        firstname: req.body.firstname,
-        lastname: req.body.lastname,
-        password: await bcrypt.hash(req.body.password, 10),
-      },
-    });
-    // console.log(req);
-    if (created) {
-      req.login(user, () => {
-        res.redirect("/login");
+  registerNewAuthor(req, res) {
+    const password = bcrypt.hashSync(
+      req.body.password,
+      Number(authConfig.rounds)
+    );
+    // Crear usuario
+    Author.create({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: password,
+    })
+      .then((author) => {
+        // Despúes de crear el usuario, creamos el token.
+        const token = jwt.sign({ author: author }, authConfig.secret, {
+          expiresIn: authConfig.expires,
+        });
+        res.redirect("/login", { token });
+      })
+      .catch((error) => {
+        res.status(500).json(error);
       });
-    } else {
-      res.send("¡El usuario ya se encuentra registrado!");
-    }
   },
 
   logOut: async (req, res) => {
-    await req.logout();
-    delete req.locals.user;
-    res.redirect("/");
-  }
+    await req.session.destroy(() => {
+      res.redirect("/login");
+    });
+  },
 };
 
 module.exports = pagesController;

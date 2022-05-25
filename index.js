@@ -3,11 +3,11 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const methodOverride = require("method-override");
+const dbInitialSetup = require("./dbInitialSetup");
 const app = express();
-const flash = require("express-flash");
+const flash = require("connect-flash");
 const port = 3000;
 
-const dbInitialSetup = require("./dbInitialSetup");
 const logger = require("./middlewares/logger");
 const routes = require("./routes/routes");
 const passport = require("./passport");
@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(logger);
 app.use(express.json());
+app.use(flash());
 
 app.use(
   session({
@@ -26,6 +27,12 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+// Lo hago parte de las variables locales
+app.use((req, res, next) => {
+  res.locals.mensajes = req.flash();
+  next();
+})
 
 passport(app);
 

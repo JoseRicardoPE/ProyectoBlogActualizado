@@ -26,8 +26,8 @@ publicRouter.post(
 
 publicRouter.get("/register", pagesController.showRegister);
 
-publicRouter.post("/register", pagesController.registerPostNewAuthor);
+publicRouter.post("/register", pagesController.registerNewAuthor);
 
-publicRouter.get("/logout", pagesController.logOut); 
+publicRouter.get("/logout", pagesController.logOut);
 
 module.exports = publicRouter;
