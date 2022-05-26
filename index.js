@@ -33,7 +33,6 @@ app.use((req, res, next) => {
 });
 
 passport(app);
-
 routes(app);
 
 // dbInitialSetup();
